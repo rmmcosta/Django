@@ -1,0 +1,66 @@
+This article shows how you can create a "skeleton" website, which you can then populate with site-specific settings, urls, 
+models, views, and templates (we discuss these in later articles).
+
+The process is straightforward:
+
+Use the django-admin tool to create the project folder, basic file templates, and project management script (manage.py).
+Use manage.py to create one or more applications.
+Note: A website may consist of one or more sections, e.g. main site, blog, wiki, downloads area, etc. Django encourages you to 
+develop these components as separate applications, which could then be re-used in different projects if desired. 
+Register the new applications to include them in the project.
+Hook up the url mapper for each application.
+
+Listar ambientes virtuais
+	lsvirtualenv
+
+create the virtual env
+	virtualenv ENV_XPTO (virtualenv command)
+	workon ENV_XPTO (virtualenvwrapper command)
+inside the virtualenv ENV_XPTO create the project
+	django-admin startproject locallibrary
+	cd locallibrary
+inside the project folder create the app
+python manage.py startapp catalog
+
+locallibrary/
+    manage.py
+    locallibrary/
+        settings.py
+        urls.py
+        wsgi.py
+	catalog/
+        admin.py
+        apps.py
+        models.py
+        tests.py
+        views.py
+        __init__.py
+        migrations/
+		
+We must Register the catalog application
+	Applications are registered by adding them to the INSTALLED_APPS list in the project settings.
+	
+	INSTALLED_APPS = [
+		...,
+		'catalog.apps.CatalogConfig',
+	]
+	
+Specify the database
+
+	https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+
+Other project settings
+
+	TIME_ZONE = 'Europe/London'
+
+Hooking up the URL mapper
+
+	The website is created with a URL mapper file (urls.py) in the project folder. 
+	While you can use this file to manage all your URL mappings, it is more usual to defer mappings to their associated  application.
+	
+# Use include() to add URLS from the catalog application 
+from django.conf.urls import include
+
+urlpatterns += [
+    url(r'^catalog/', include('catalog.urls')),
+]

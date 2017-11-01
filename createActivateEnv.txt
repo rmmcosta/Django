@@ -1,0 +1,31 @@
+virtualenv ENV_XPTO
+
+\path\to\env\Scripts\activate
+
+Basic Usage
+Create a virtual environment:
+$ mkvirtualenv my_project
+This creates the my_project folder inside ~/Envs.
+
+Work on a virtual environment:
+$ workon my_project
+Alternatively, you can make a project, which creates the virtual environment, and also a project directory inside $PROJECT_HOME, which is cd -ed into when you workon myproject.
+
+$ mkproject myproject
+
+This article shows how you can create a "skeleton" website, which you can then populate with site-specific settings, urls, 
+models, views, and templates (we discuss these in later articles).
+
+The process is straightforward:
+
+Use the django-admin tool to create the project folder, basic file templates, and project management script (manage.py).
+Use manage.py to create one or more applications.
+Note: A website may consist of one or more sections, e.g. main site, blog, wiki, downloads area, etc. Django encourages you to 
+develop these components as separate applications, which could then be re-used in different projects if desired. 
+Register the new applications to include them in the project.
+Hook up the url mapper for each application.
+
+django-admin startproject locallibrary
+cd locallibrary
+
+python manage.py startapp catalog
